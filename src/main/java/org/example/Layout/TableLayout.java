@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 public class TableLayout {
     private JPanel tablePanel;
     private Container c;
+    private JFrame frame;
+    private JDialog detailPopUp;
 
     private static String[] columnNames = {"Name","Email","Gender"};
     private DefaultTableModel dtm = new DefaultTableModel(null, columnNames) {
@@ -43,7 +45,16 @@ public class TableLayout {
                String name =(String) table.getValueAt(rowSelected,0);
                String email = (String) table.getValueAt(rowSelected,1);
                String gender = (String) table.getValueAt(rowSelected,2);
-               JOptionPane.showMessageDialog(tablePanel,"Name : "+name+"\n"+"Email : "+email+"\n"+"Gender : "+gender);
+
+                frame = new JFrame("Details");
+                detailPopUp = new JDialog(frame, "Details");
+                String html = "<html>Name : "+name +"<br>Email : "+email+"<br>Gender : "+gender+"</html>";
+                JLabel nameLabel = new JLabel(html);
+                detailPopUp.add(nameLabel);
+                detailPopUp.setSize(200, 150);
+                detailPopUp.setVisible(true);
+                frame.setSize(300, 300);
+
             }
         });
         tablePanel.add(detail);
